@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+    <h1>Welcome to blog app</h1>
+    <h2>All Posts: </h2>
+    <% posts_list.forEach(post => { %>
+        <p><%= post.text %></p>
+        <a href="/edit/<%= post.post_id %>">Edit</a>
+    <% }); %>
+</body>
+</html>
