@@ -7,14 +7,14 @@ const NotesList = () => {
 
   // Fetch notes
   useEffect(() => {
-    axios.get("http://localhost:3000/").then((response) => {
+    axios.get("https://notes-app-oarj.onrender.com/").then((response) => {
       setNotes(response.data);
     });
   }, []);
 
   // Delete Note Function
   const handleDelete = (postId) => {
-    axios.delete(`http://localhost:3000/delete/${postId}`).then(() => {
+    axios.delete(`https://notes-app-oarj.onrender.com/${postId}`).then(() => {
       setNotes(notes.filter((note) => note.post_id !== postId));
     });
   };

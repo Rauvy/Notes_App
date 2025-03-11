@@ -8,7 +8,7 @@ const NewNote = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/submit", { post_text: text }).then(() => {
+    axios.post("https://notes-app-oarj.onrender.com/submit", { post_text: text }).then(() => {
       navigate("/");
     });
   };

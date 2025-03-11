@@ -8,14 +8,14 @@ const EditNote = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/edit/${id}`).then((response) => {
+    axios.get(`https://notes-app-oarj.onrender.com/edit/${id}`).then((response) => {
       setText(response.data.text);
     });
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:3000/edit/${id}`, { post_text: text }).then(() => {
+    axios.post(`https://notes-app-oarj.onrender.com/edit/${id}`, { post_text: text }).then(() => {
       navigate("/");
     });
   };
