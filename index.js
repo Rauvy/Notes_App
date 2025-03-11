@@ -1,56 +1,62 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
 const posts = [];
 
-app.set('view engine', 'ejs');
-app.set('views', './views');
-app.use(express.static("public"));
+app.use(cors()); // Allow React frontend to communicate with backend
+app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
+// Get all notes
 app.get("/", (req, res) => {
-    res.render("index.ejs", {
-        posts_list: posts
-    });
+    res.json(posts);
 });
 
-app.get("/new", (req, res) => {
-    res.render("new_post.ejs");
-}); 
-
+// Get a single note for editing
 app.get("/edit/:id", (req, res) => {
-    const postId = parseInt(req.params.id); // Parse the ID from the URL
-    const post = posts.find(p => p.post_id === postId); // Find the post with matching ID
+    const postId = parseInt(req.params.id);
+    const post = posts.find((p) => p.post_id === postId);
 
     if (post) {
-        res.render("edit_post.ejs", { post: post }); // Pass the post to the template
+        res.json(post);
     } else {
-        res.status(404).send("Post not found");
+        res.status(404).json({ message: "Post not found" });
     }
 });
 
-
+// Create a new note
 app.post("/submit", (req, res) => {
-    const text = req.body["post_text"];
+    const text = req.body.post_text;
     const post_id = posts.length;
     posts.push({ post_id: post_id, text: text });
-    res.redirect("/");
+    res.json({ message: "Post added successfully" });
 });
 
+// Edit an existing note
 app.post("/edit/:id", (req, res) => {
     const postId = parseInt(req.params.id);
-    const updatedText = req.body["post_text"];
-    const postIndex = posts.findIndex(p => p.post_id === postId);
+    const updatedText = req.body.post_text;
+    const postIndex = posts.findIndex((p) => p.post_id === postId);
 
     if (postIndex !== -1) {
         posts[postIndex].text = updatedText;
-        res.redirect("/");
+        res.json({ message: "Post updated successfully" });
     } else {
-        res.status(404).send("Post not found");
+        res.status(404).json({ message: "Post not found" });
+    }
+});
+
+app.delete("/delete/:id", (req, res) => {
+    const postId = parseInt(req.params.id);
+    const postIndex = posts.findIndex((p) => p.post_id === postId);
+
+    if (postIndex !== -1) {
+        posts.splice(postIndex, 1);
+        res.json({ message: "Post deleted successfully" });
+    } else {
+        res.status(404).json({ message: "Post not found" });
     }
 });
 

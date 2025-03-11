@@ -132,3 +132,6 @@ dist
 =======
 node_modules/
 >>>>>>> 1f5f58d (Blog application I have developed for Web Development Bootcamp)
+
+# Local Netlify folder
+.netlify
