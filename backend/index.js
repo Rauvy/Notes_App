@@ -6,16 +6,16 @@ const app = express();
 const port = 3000;
 const posts = [];
 
-app.use(cors()); // Allow React frontend to communicate with backend
+app.use(cors()); 
 app.use(bodyParser.json());
 
-// Get all notes
+
 app.get("/", (req, res) => {
     res.json(posts);
 });
 
-// Get a single note for editing
-app.get("/edit/:id", (req, res) => {
+
+app.get("https://notes-app-oarj.onrender.com/edit/:id", (req, res) => {
     const postId = parseInt(req.params.id);
     const post = posts.find((p) => p.post_id === postId);
 
@@ -26,7 +26,7 @@ app.get("/edit/:id", (req, res) => {
     }
 });
 
-// Create a new note
+
 app.post("/submit", (req, res) => {
     const text = req.body.post_text;
     const post_id = posts.length;
@@ -34,7 +34,7 @@ app.post("/submit", (req, res) => {
     res.json({ message: "Post added successfully" });
 });
 
-// Edit an existing note
+
 app.post("/edit/:id", (req, res) => {
     const postId = parseInt(req.params.id);
     const updatedText = req.body.post_text;

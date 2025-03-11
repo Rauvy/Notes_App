@@ -14,7 +14,7 @@ const NotesList = () => {
 
   // Delete Note Function
   const handleDelete = (postId) => {
-    axios.delete(`https://notes-app-oarj.onrender.com/${postId}`).then(() => {
+    axios.delete(`https://notes-app-oarj.onrender.com/delete/${postId}`).then(() => {
       setNotes(notes.filter((note) => note.post_id !== postId));
     });
   };
