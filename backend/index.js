@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("https://notes-app-oarj.onrender.com/edit/:id", (req, res) => {
+app.get("/edit/:id", (req, res) => {
     const postId = parseInt(req.params.id);
     const post = posts.find((p) => p.post_id === postId);
 
